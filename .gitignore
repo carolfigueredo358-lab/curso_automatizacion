@@ -1,0 +1,29 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno (contiene credenciales reales)
+.env
+
+# Resultados de tests Playwright
+test-results/
+playwright-report/
+blob-report/
+
+# Resultados de Newman
+newman/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+*.swp
+
+# Reportes de Cucumber
+cucumber-report.json
