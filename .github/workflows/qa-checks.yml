@@ -1,0 +1,83 @@
+name: QA checks
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      coleccion:
+        description: "Ruta de la coleccion Postman a ejecutar con Newman"
+        required: true
+        default: "postman/aiquaa Sandbox API.json"
+
+jobs:
+  checks:
+    name: BDD + smoke UI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Instalar navegador de Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Escenarios BDD (Cucumber)
+        run: npm run test:bdd
+
+      - name: Smoke UI (Playwright)
+        run: npm run smoke
+        env:
+          BASE_URL: ${{ vars.BASE_URL || 'https://aiquaa.com' }}
+
+      - name: Subir reporte de Playwright
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  newman:
+    name: Regresion Postman (manual)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar coleccion con Newman
+        run: >
+          npx newman run "${{ inputs.coleccion }}"
+          --env-var "baseUrl=${{ vars.SANDBOX_BASE_URL || 'https://aiquaa-sandbox-api.vercel.app' }}"
+          --env-var "apiKey=${{ secrets.SANDBOX_API_KEY }}"
+          --delay-request 800
+          --reporters cli,junit
+          --reporter-junit-export newman/results.xml
+
+      - name: Subir resultados (JUnit)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: newman-resultados
+          path: newman/results.xml
+          retention-days: 7
