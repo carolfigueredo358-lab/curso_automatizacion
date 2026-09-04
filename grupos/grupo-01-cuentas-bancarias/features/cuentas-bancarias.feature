@@ -3,7 +3,7 @@
 Característica: Cuentas bancarias
   Como cliente del banco
   quiero consultar mis cuentas, saldos y movimientos
-  para controlar el estado de mi dinero
+  para controlar el estado de mi dinero 
 
   # Quitar el tag @wip cuando los steps estén implementados en tests/bdd/steps.
 
