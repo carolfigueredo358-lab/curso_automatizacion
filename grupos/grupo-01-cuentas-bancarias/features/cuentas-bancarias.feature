@@ -24,3 +24,8 @@ Característica: Cuentas bancarias
     Dado que el cliente tiene una cuenta recién creada
     Cuando consulta los movimientos de esa cuenta
     Entonces el sistema devuelve una lista vacía sin error
+
+    Escenario: Apertura de Cuentas en Guaranies
+    Dado que el cliente aun no tiene cuenta
+    Cuando ingresa a la app y solicita una cuenta en guaranies
+    Entonces el sistema le genera un numero de cuenta de caja de ahorro
