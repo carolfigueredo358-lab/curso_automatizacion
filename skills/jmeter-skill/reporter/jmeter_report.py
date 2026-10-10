@@ -536,13 +536,36 @@ def build_sampler_detail(samplers, top_errors, styles):
     return story
 
 
+# ─── Evidencia de monitoreo ───────────────────────────────────────────────────
+def build_evidence(styles, image_path, label="Evidencia de monitoreo", url=None):
+    """Página extra con una captura de dashboard (Grafana, etc.). Si la imagen
+    no existe devuelve vacío: una captura fallida no debe romper el informe."""
+    if not image_path or not os.path.exists(image_path):
+        return []
+    from xml.sax.saxutils import escape
+
+    from reportlab.lib.utils import ImageReader
+
+    width, height = ImageReader(image_path).getSize()
+    target_width = PAGE_W - 2 * MARGIN
+    target_height = min(200 * mm, target_width * height / width)
+    story = [PageBreak(), Paragraph(escape(label), styles["section"])]
+    if url:
+        story.append(Paragraph(f"Fuente: {escape(url)}", styles["body"]))
+    story += [Spacer(1, 3 * mm),
+              Image(image_path, width=target_height * width / height, height=target_height)]
+    return story
+
+
 # ─── Entry point ──────────────────────────────────────────────────────────────
 def generate_report(results_path, output_path, api_name="API",
                     threads=1, loops=10, perfil=None,
                     api_version=None, repo_url=None,
                     author=None, banner=None,
                     baseline_path=None,
-                    sla_error_rate=2.0, sla_p95=3000.0, sla_throughput=None):
+                    sla_error_rate=2.0, sla_p95=3000.0, sla_throughput=None,
+                    evidence_image=None, evidence_label="Evidencia de monitoreo",
+                    evidence_url=None):
     stats, samplers, top_errors = parse_jtl(results_path)
     baseline_cmp = compare_baseline(stats, baseline_path)
 
@@ -563,6 +586,7 @@ def generate_report(results_path, output_path, api_name="API",
                          sla_error_rate=sla_error_rate, sla_p95=sla_p95,
                          sla_throughput=sla_throughput, baseline_cmp=baseline_cmp)
     story += build_sampler_detail(samplers, top_errors, styles)
+    story += build_evidence(styles, evidence_image, evidence_label, evidence_url)
 
     doc.build(story, onFirstPage=on_page, onLaterPages=on_page)
 
@@ -604,6 +628,11 @@ if __name__ == "__main__":
     parser.add_argument("--repo-url",        default=None, help="URL del repositorio")
     parser.add_argument("--author",          default=None, help="Autor de la prueba")
     parser.add_argument("--banner",          default=None, help="Imagen de portada (opcional)")
+    parser.add_argument("--evidence-image",  default=None,
+                         help="Captura de dashboard de monitoreo a incluir (opcional)")
+    parser.add_argument("--evidence-label",  default="Evidencia de monitoreo",
+                         help="Título de la página de evidencia")
+    parser.add_argument("--evidence-url",    default=None, help="URL de origen de la captura")
     args = parser.parse_args()
 
     output_path = args.output
@@ -627,4 +656,7 @@ if __name__ == "__main__":
         sla_error_rate=args.sla_error_rate,
         sla_p95=args.sla_p95,
         sla_throughput=args.sla_throughput,
+        evidence_image=args.evidence_image,
+        evidence_label=args.evidence_label,
+        evidence_url=args.evidence_url,
     )
