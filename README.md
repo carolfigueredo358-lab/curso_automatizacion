@@ -75,7 +75,9 @@ Si `npm run smoke` pasa sin errores, el entorno está bien configurado.
 curso_automatizacion/
 ├── .github/
 │   ├── pull_request_template.md   # plantilla de PR
-│   └── workflows/qa-checks.yml    # CI: BDD + smoke UI, y Newman a demanda
+│   └── workflows/
+│       ├── qa-checks.yml              # CI: BDD + smoke UI, y Newman a demanda
+│       └── Y_AIQUAAECHO_jmeter.yml    # flujo de prueba: carga JMeter + informe PDF
 ├── ci/                            # plantilla de pipeline de referencia
 ├── docs/
 │   ├── ACCESO-DB.md               # host, usuarios por grupo, cómo conectarse
