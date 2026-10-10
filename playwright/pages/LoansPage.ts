@@ -18,10 +18,19 @@ export class LoansPage {
     await expect(this.page.getByRole('heading', { name: `Préstamo N° ${id}` })).toBeVisible();
   }
 
-  async expectOutstandingBalanceAndNextInstallment(balance: string): Promise<void> {
-    await expect(this.page.getByText('Saldo pendiente', { exact: true })).toBeVisible();
-    await expect(this.page.getByText(balance, { exact: true })).toBeVisible();
+  async expectLoanApproved(): Promise<void> {
+    const detail = this.page.getByTestId('v2-prestamos-detail');
+    await expect(detail.getByText('Estado', { exact: true })).toBeVisible();
+    await expect(detail.getByText('Aprobado', { exact: true })).toBeVisible();
+  }
 
+  async expectOutstandingBalance(balance: string): Promise<void> {
+    const detail = this.page.getByTestId('v2-prestamos-detail');
+    await expect(detail.getByText('Saldo pendiente', { exact: true })).toBeVisible();
+    await expect(detail.getByText(balance, { exact: true })).toBeVisible();
+  }
+
+  async expectNextPendingInstallment(): Promise<void> {
     const nextInstallment = this.page.getByTestId('v2-prestamos-cuotas-row-6');
     await expect(nextInstallment).toContainText('Pendiente');
   }

@@ -10,9 +10,9 @@ test.describe('@prestamos @grupo-03 Préstamos', () => {
     await loans.signInAsAdmin(adminEmail);
     await loans.openLoan(2);
 
-    await expect(page.getByText('Estado', { exact: true })).toBeVisible();
-    await expect(page.getByText('Aprobado', { exact: true })).toBeVisible();
-    await loans.expectOutstandingBalanceAndNextInstallment('PYG 6.880.000,00');
+    await loans.expectLoanApproved();
+    await loans.expectOutstandingBalance('PYG 6.880.000,00');
+    await loans.expectNextPendingInstallment();
   });
 
   test('PRE-02 @negativo rechaza la consulta de un préstamo de otro cliente', () => {

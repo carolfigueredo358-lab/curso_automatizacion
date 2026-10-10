@@ -23,6 +23,7 @@
 ## Contrato de selectores
 
 - `v2-prestamos-cuotas-row-6`: fila de la próxima cuota pendiente del préstamo de fixture 2.
+- `v2-prestamos-detail`: contenedor estable de los datos del préstamo.
 
 ## Riesgos
 
