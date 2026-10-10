@@ -20,6 +20,9 @@ Request.
 Un solo grupo por estudiante, máximo 3 integrantes. Lista de la clase en
 [`docs/ROSTER.md`](docs/ROSTER.md).
 
+Los requerimientos funcionales de cada módulo (un PDF por grupo, base para los escenarios BDD)
+están en [`docs/requerimientos/`](docs/requerimientos/README.md).
+
 > Préstamos y Ahorros/Depósitos todavía no tienen endpoints REST publicados: esos grupos
 > arrancan por BDD + validación SQL contra la base. Detalle en el README de cada grupo.
 
