@@ -32,7 +32,15 @@ Característica: Cuentas bancarias
 
     Escenario: Consultar los movimientos de una cuenta bancaria
     Dado que el cliente posee una cuenta bancaria con movimientos registrados
-    Cuando consulta los movimientos de la cuenta
+    Cuando consulta los movimientos de la cuenta 
+
+    
+  @RF-G1-03 @negativo
+  Escenario: Consultar cuenta inexistente mediante API
+    Dado que existe una API key valida del curso 2
+    Cuando consulta la cuenta inexistente 999999999
+    Entonces la API responde con estado 404
+
     Entonces el sistema debe mostrar los movimientos asociados a la cuenta
     Y debe mostrar la información correspondiente a cada movimiento
 
