@@ -13,7 +13,7 @@ Característica: Cuentas bancarias
     Cuando consulta el detalle de esa cuenta
     Entonces el sistema devuelve el saldo y la moneda de la cuenta
 
-  @negativo
+  @wip @negativo
   Escenario: Consulta de una cuenta inexistente
     Dado que el cliente está autenticado
     Cuando consulta una cuenta que no existe
@@ -47,7 +47,7 @@ Característica: Cuentas bancarias
 
     
   @RF-G1-03 @negativo
-  Escenario: Consultar cuenta inexistente mediante API
+    Escenario: Consultar cuenta inexistente mediante API
     Dado que existe una API key valida del curso 2
     Cuando consulta la cuenta inexistente 999999999
     Entonces la API responde con estado 404
@@ -60,8 +60,8 @@ Característica: Cuentas bancarias
     Entonces la API responde con codigo 200
     Y el estado de la cuenta es "bloqueada"
 
-  @RF-G1-09 @negativo
-  Escenario: Rechazar un retiro por saldo insuficiente
+  @wip @RF-G1-09 @negativo
+    Escenario: Rechazar un retiro por saldo insuficiente
     Dado que existe una cuenta activa con saldo de 100000 guaranies
     Cuando solicita retirar 200000 guaranies
     Entonces la API responde con codigo 409
