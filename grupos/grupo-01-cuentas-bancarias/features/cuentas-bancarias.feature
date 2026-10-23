@@ -43,7 +43,15 @@ Característica: Cuentas bancarias
     Cuando solicita abrir una cuenta de ahorro en guaranies
     Entonces la API responde con codigo 201
     Y la cuenta se crea con saldo "0.00"
-    Y el estado de la cuenta es "activa"
+    Y el estado de la cuenta es "activa" 
+
+    
+  @RF-G1-03 @negativo
+  Escenario: Consultar cuenta inexistente mediante API
+    Dado que existe una API key valida del curso 2
+    Cuando consulta la cuenta inexistente 999999999
+    Entonces la API responde con estado 404
+
 
   @RF-G1-06 @positivo
   Escenario: Bloquear una cuenta bancaria activa
