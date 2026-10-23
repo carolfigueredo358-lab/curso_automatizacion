@@ -32,8 +32,12 @@ jobs:
       - name: Instalar navegador de Playwright
         run: npx playwright install --with-deps chromium
 
+      - 
       - name: Escenarios BDD (Cucumber)
         run: npm run test:bdd
+        env:
+        API_KEY: ${{ secrets.API_KEY }}
+
 
       - name: Smoke UI (Playwright)
         run: npm run smoke
