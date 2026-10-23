@@ -7,8 +7,8 @@ Característica: Cuentas bancarias
 
   # Quitar el tag @wip cuando los steps estén implementados en tests/bdd/steps.
 
-  @happy-path
-  Escenario: El cliente consulta el saldo de una cuenta activa
+    @wip @happy-path
+    Escenario: El cliente consulta el saldo de una cuenta activa
     Dado que el cliente tiene una cuenta activa
     Cuando consulta el detalle de esa cuenta
     Entonces el sistema devuelve el saldo y la moneda de la cuenta
