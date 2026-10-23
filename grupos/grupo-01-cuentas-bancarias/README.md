@@ -44,3 +44,47 @@ Checklist según [ENTREGABLES.md](../../ENTREGABLES.md):
 - [ ] Evidencias en `evidence/`
 - [ ] CI/CD verde
 - [ ] PR de `grupo-01-cuentas-bancarias` hacia `main` usando la plantilla del repo
+
+
+## Mejora de BDD - Grupo 1
+
+### Objetivo
+Mejorar los escenarios de pruebas funcionales del módulo
+Cuentas Bancarias utilizando BDD y lenguaje Gherkin.
+
+### Documento de referencia
+Requerimientos funcionales del Grupo 1:
+grupo-01-cuentas-bancarias.pdf
+
+### Funcionalidades analizadas
+- Listado y consulta de cuentas bancarias.
+- Apertura y modificación de cuentas.
+- Baja lógica de cuentas.
+- Bloqueo y desbloqueo de cuentas.
+- Consulta de saldos y movimientos.
+- Registro de depósitos y retiros.
+- Validación de errores y reglas de negocio.
+
+### Escenarios BDD incorporados
+Se agregaron escenarios para:
+- Apertura exitosa de una cuenta.
+- Bloqueo de una cuenta activa.
+- Rechazo de retiro por saldo insuficiente.
+
+Archivo:
+features/cuentas-bancarias.feature
+
+### Documentación y extracción de texto
+El PDF de requerimientos contiene texto seleccionable,
+por lo que puede convertirse a Markdown sin aplicar
+OCR sobre imágenes.
+
+La extracción permite identificar requerimientos,
+reglas de negocio y criterios de aceptación para
+elaborar los escenarios Gherkin.
+
+### Estado de las pruebas
+Los escenarios agregados están documentados.
+Pendiente: verificar las definiciones de pasos,
+ejecutar las pruebas y registrar las evidencias.
+
