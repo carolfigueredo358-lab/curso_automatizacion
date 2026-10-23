@@ -36,4 +36,29 @@ Característica: Cuentas bancarias
     Entonces el sistema debe mostrar los movimientos asociados a la cuenta
     Y debe mostrar la información correspondiente a cada movimiento
 
+    
+  @RF-G1-02 @positivo
+  Escenario: Apertura exitosa de una cuenta bancaria
+    Dado que existe un cliente registrado
+    Cuando solicita abrir una cuenta de ahorro en guaranies
+    Entonces la API responde con codigo 201
+    Y la cuenta se crea con saldo "0.00"
+    Y el estado de la cuenta es "activa"
+
+  @RF-G1-06 @positivo
+  Escenario: Bloquear una cuenta bancaria activa
+    Dado que existe una cuenta bancaria activa
+    Cuando solicita cambiar su estado a "bloqueada"
+    Entonces la API responde con codigo 200
+    Y el estado de la cuenta es "bloqueada"
+
+  @RF-G1-09 @negativo
+  Escenario: Rechazar un retiro por saldo insuficiente
+    Dado que existe una cuenta activa con saldo de 100000 guaranies
+    Cuando solicita retirar 200000 guaranies
+    Entonces la API responde con codigo 409
+    Y el codigo de error es "CONFLICT"
+    Y el saldo de la cuenta permanece sin cambios
+
+
 
