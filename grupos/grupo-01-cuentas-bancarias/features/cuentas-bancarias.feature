@@ -1,5 +1,5 @@
 # language: es
-@wip @grupo-01
+@grupo-01
 Característica: Cuentas bancarias
   Como cliente del banco
   quiero consultar mis cuentas, saldos y movimientos
@@ -53,7 +53,7 @@ Característica: Cuentas bancarias
     Entonces la API responde con estado 404
 
 
-  @RF-G1-06 @positivo
+  @wip @RF-G1-06 @positivo
   Escenario: Bloquear una cuenta bancaria activa
     Dado que existe una cuenta bancaria activa
     Cuando solicita cambiar su estado a "bloqueada"
